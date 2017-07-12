@@ -1,0 +1,1 @@
+React is a very sophisticated way to manage UI and data within an application. It’s also a very good choice for rendering server-side content, to appease JavaScript-depraved web crawlers and for rendering UI browser-side to keep us browsing fast. And we can get the best results of both worlds by making our application universal.

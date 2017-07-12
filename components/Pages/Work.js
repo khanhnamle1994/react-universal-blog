@@ -1,17 +1,17 @@
-// Blog.js
+// Work.js
 import React, { Component } from 'react'
 import _ from 'lodash'
 import config from '../../config'
 
 // Components
 import Header from '../Partials/Header'
-import BlogList from '../Partials/BlogList'
-import BlogSingle from '../Partials/BlogSingle'
+import WorkList from '../Partials/WorkList'
+import WorkSingle from '../Partials/WorkSingle'
 
 // Dispatcher
 import AppDispatcher from '../../dispatcher/AppDispatcher'
 
-export default class Blog extends Component {
+export default class Work extends Component {
 
   componentWillMount(){
     this.getPageData()
@@ -25,12 +25,12 @@ export default class Blog extends Component {
   getPageData(){
     AppDispatcher.dispatch({
       action: 'get-page-data',
-      page_slug: 'blog',
+      page_slug: 'work',
       post_slug: this.props.params.slug
     })
   }
 
-  getMoreArticles(){
+  getMoreWorkItems(){
     AppDispatcher.dispatch({
       action: 'get-more-items'
     })
@@ -45,28 +45,29 @@ export default class Blog extends Component {
 
     if(!this.props.params.slug){
 
-      main_content =
+      main_content = <WorkList getMoreWorkItems={ this.getMoreWorkItems } data={ data }/>
 
     } else {
-
-      const articles = data.articles
-
+      
+      const work_items = data.work_items
+      
       // Get current page slug
       const slug = this.props.params.slug
-      const articles_object = _.indexBy(articles, 'slug')
-      const article = articles_object[slug]
-      main_content =
+      const work_items_object = _.indexBy(work_items, 'slug')
+      const work_item = work_items_object[slug]
+      
+      main_content = <WorkSingle data={ data } work_item={ work_item }/>
 
     }
 
     return (
       <div>
         <Header data={ data }/>
-        <div id="main-content" className="container">
-          <div className="row">
-            <div className="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            { main_content }
-            </div>
+          <div id="main-content" className="container">
+            <div className="row">
+              <div className="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+              { main_content }
+              </div>
           </div>
         </div>
       </div>
